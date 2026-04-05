@@ -67,6 +67,9 @@
         @apply size-6;
     }
 
+    .safe-view{
+        @apply flex-1 bg-background p-5;
+    }
     .home-header {
         @apply mb-2.5 flex-row items-center justify-between;
     }
