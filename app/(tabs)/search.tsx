@@ -1,8 +1,6 @@
-import { styled } from "nativewind";
+import { SafeAreaView } from '@/components/SafeAreaWrapper';
 import React from 'react';
 import { Text } from 'react-native';
-import { SafeAreaView as RNSafeView } from "react-native-safe-area-context";
-const SafeAreaView = styled(RNSafeView);
 
 const Search = () => {
     return (
