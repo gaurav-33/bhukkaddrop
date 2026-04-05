@@ -1,0 +1,74 @@
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/preflight.css" layer(base);
+@import "tailwindcss/utilities.css";
+
+@import "nativewind/theme";
+
+@theme {
+    --color-background: #FFF0E6;
+    --color-foreground: #3D2C24;
+    --color-card: #FFFFFF;
+    --color-card-foreground: #3D2C24;
+    --color-muted: #F7E4D9;
+    --color-muted-foreground: #968176;
+    --color-primary: #FF7043;
+    --color-primary-dark: #E64A19;
+    --color-accent: #FF9D42;
+    --color-border: #EEDDCC;
+    --color-success: #16A34A;
+    --color-destructive: #DC2626;
+
+    --spacing-0: 0px;
+    --spacing-1: 4px;
+    --spacing-2: 8px;
+    --spacing-3: 12px;
+    --spacing-4: 16px;
+    --spacing-5: 20px;
+    --spacing-6: 24px;
+    --spacing-7: 28px;
+    --spacing-8: 32px;
+    --spacing-9: 36px;
+    --spacing-10: 40px;
+    --spacing-11: 44px;
+    --spacing-12: 48px;
+    --spacing-14: 56px;
+    --spacing-16: 64px;
+    --spacing-18: 72px;
+    --spacing-20: 80px;
+    --spacing-24: 96px;
+    --spacing-30: 120px;
+
+    --font-sans-light: 'Inter-Light', sans-serif;
+    --font-sans-regular: 'Inter-Regular', sans-serif;
+    --font-sans-medium: 'Inter-Medium', sans-serif;
+    --font-sans-semibold: 'Inter-SemiBold', sans-serif;
+    --font-sans-bold: 'Inter-Bold', sans-serif;
+
+    /* Epilogue → Headings */
+    --font-heading-regular: 'Epilogue-Regular', sans-serif;
+    --font-heading-semibold: 'Epilogue-SemiBold', sans-serif;
+    --font-heading-bold: 'Epilogue-Bold', sans-serif;
+}
+
+@layer components {
+    .tabs-icon {
+        @apply size-12 items-center justify-center;
+    }
+
+    .tabs-pill {
+        @apply size-12 items-center justify-center rounded-full bg-transparent;
+    }
+
+    .tabs-active {
+        @apply bg-accent;
+    }
+
+    .tabs-glyph {
+        @apply size-6;
+    }
+
+    .home-header {
+        @apply mb-2.5 flex-row items-center justify-between;
+    }
+
+}
