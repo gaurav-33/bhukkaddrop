@@ -9,7 +9,7 @@ type Props = {
 
 export function PromoCard({ promo, onPress }: Props) {
   return (
-    <Pressable className="relative overflow-hidden rounded-3xl h-44 mr-4 w-70" onPress={onPress}>
+    <Pressable className="relative overflow-hidden rounded-3xl h-44 mr-4 w-75" onPress={onPress}>
       {/* ── Layer 1: full-bleed food image ── */}
       <Image
         source={{ uri: promo.imageUri }}

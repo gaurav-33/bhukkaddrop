@@ -1,5 +1,6 @@
 import { CategoryCard } from "@/components/CategoryCard";
 import { FilterChip } from "@/components/FilterChip";
+import FooterCredit from "@/components/FooterCredit";
 import { OfferCard } from "@/components/OfferCard";
 import { PromoCard } from "@/components/PromoCard";
 import { RestaurantCard } from "@/components/RestaurantCard";
@@ -172,6 +173,9 @@ export default function Home() {
             <RestaurantCard key={restaurant.id} restaurant={restaurant} onPress={() => null} />
           ))}
         </View>
+
+        {/* Footer */}
+        <FooterCredit />
       </ScrollView>
     </SafeAreaView>
   );
