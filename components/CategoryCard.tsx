@@ -1,5 +1,4 @@
 import { Image, Text, View } from "react-native";
-import { Category } from "@/constants/data";
 
 export function CategoryCard({ category }: { category: Category }) {
     return (

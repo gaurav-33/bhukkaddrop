@@ -83,12 +83,6 @@ export const offers: Offer[] = [
     },
 ];
 
-export type Category = {
-    id: string;
-    alias: string;
-    imageUri: string;
-};
-
 export const CATEGORIES: Category[] = [
     { id: 'c1', alias: 'North Indian', imageUri: 'https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=200&q=80' },
     { id: 'c2', alias: 'Burgers', imageUri: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=200&q=80' },
@@ -104,22 +98,6 @@ export const FILTERS = [
     { id: 'f4', label: '99 Store' },
 ];
 
-export type Restaurant = {
-    id: string;
-    name: string;
-    rating: string;
-    ratingCount: string;
-    distance: string;
-    location: string;
-    tags: string;
-    priceForTwo: string;
-    imageUri: string;
-    badgeType?: 'veg' | 'bolt' | null;
-    offerTitle: string;
-    offerSubtitle: string;
-    deliveryTime: string;
-    isAd?: boolean;
-};
 
 export const RESTAURANTS: Restaurant[] = [
     {

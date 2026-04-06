@@ -18,13 +18,34 @@ declare global {
         cta: string;
         imageUri: string;
     }
-    interface Offer{
+    interface Offer {
         id: string;
         icon: string;       // emoji
         label: string;
         tag: string;        // e.g. "50% OFF"
         tagColor: string;   // hex
         restaurant: string;
+    }
+    interface Category {
+        id: string;
+        alias: string;
+        imageUri: string;
+    }
+    interface Restaurant {
+        id: string;
+        name: string;
+        rating: string;
+        ratingCount: string;
+        distance: string;
+        location: string;
+        tags: string;
+        priceForTwo: string;
+        imageUri: string;
+        badgeType?: 'veg' | 'bolt' | null;
+        offerTitle: string;
+        offerSubtitle: string;
+        deliveryTime: string;
+        isAd?: boolean;
     }
 }
 
