@@ -11,6 +11,7 @@ export const colors = {
     border: "#EEDDCC",
     success: "#16A34A",
     destructive: "#DC2626",
+    white: "#FFFFFF",
 } as const;
 
 export const spacing = {

@@ -9,12 +9,12 @@ const tabBar = components.tabBar;
 
 const TabIcon = ({ focused, icon }: TabIconProps) => {
     return (
-        <View className="tabs-icon">
+        <View className="size-12 items-center justify-center">
             <View
-                className={clsx('tabs-pill', focused && "tabs-active")}
+                className={clsx('size-12 items-center justify-center rounded-full', focused ? "bg-accent" : "bg-transparent")}
             >
                 <Image source={icon}
-                    className='tabs-glyph'
+                    className='size-6'
                     style={{
                         tintColor: focused ? colors.background : colors.mutedForeground
                     }}

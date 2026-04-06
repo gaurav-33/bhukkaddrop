@@ -17,6 +17,7 @@
     --color-border: #EEDDCC;
     --color-success: #16A34A;
     --color-destructive: #DC2626;
+    --color-white: #FFFFFF;
 
     --spacing-0: 0px;
     --spacing-1: 4px;
@@ -37,6 +38,17 @@
     --spacing-20: 80px;
     --spacing-24: 96px;
     --spacing-30: 120px;
+    --spacing-32: 128px;
+    --spacing-36: 144px;
+    --spacing-40: 160px;
+    --spacing-44: 176px;
+    --spacing-48: 192px;
+    --spacing-52: 208px;
+    --spacing-56: 224px;
+    --spacing-60: 240px;
+    --spacing-64: 256px;
+    --spacing-70: 300px;
+
 
     --font-sans-light: 'Inter-Light', sans-serif;
     --font-sans-regular: 'Inter-Regular', sans-serif;
@@ -51,27 +63,7 @@
 }
 
 @layer components {
-    .tabs-icon {
-        @apply size-12 items-center justify-center;
-    }
-
-    .tabs-pill {
-        @apply size-12 items-center justify-center rounded-full bg-transparent;
-    }
-
-    .tabs-active {
-        @apply bg-accent;
-    }
-
-    .tabs-glyph {
-        @apply size-6;
-    }
-
-    .safe-view{
+    .safe-view {
         @apply flex-1 bg-background p-5;
     }
-    .home-header {
-        @apply mb-2.5 flex-row items-center justify-between;
-    }
-
 }
