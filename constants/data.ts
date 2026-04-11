@@ -115,6 +115,13 @@ export const RESTAURANTS: Restaurant[] = [
         offerSubtitle: '11% extra off',
         deliveryTime: '20-25 MINS',
         isAd: true,
+        menuCategories: [
+            { id: 'mc1', title: 'Top Picks', count: 2 },
+            { id: 'mc2', title: 'Recommendation', count: 3 },
+            { id: 'mc3', title: 'Super Saver Trio', count: 4 },
+            { id: 'mc4', title: 'Ice Creams', count: 12 },
+            { id: 'mc5', title: 'Desserts', count: 8 }
+        ]
     },
     {
         id: 'r2',
@@ -131,6 +138,11 @@ export const RESTAURANTS: Restaurant[] = [
         offerSubtitle: 'Above ₹149',
         deliveryTime: '15-20 MINS',
         isAd: false,
+        menuCategories: [
+            { id: 'mc1', title: 'Bestsellers', count: 5 },
+            { id: 'mc2', title: 'Burgers', count: 10 },
+            { id: 'mc3', title: 'Beverages', count: 6 },
+        ]
     },
     {
         id: 'r3',
@@ -146,5 +158,136 @@ export const RESTAURANTS: Restaurant[] = [
         offerTitle: 'Buy 1 Get 1',
         offerSubtitle: 'On selected items',
         deliveryTime: '25-30 MINS',
+        menuCategories: [
+            { id: 'mc1', title: 'Top Picks', count: 3 },
+            { id: 'mc2', title: 'Mains', count: 15 },
+            { id: 'mc3', title: 'Breads', count: 8 },
+        ]
+    }
+];
+
+// ── Dummy Menu Data ─────────────────────────────────────────────────────────
+
+export const TOP_PICKS: MenuItem[] = [
+    {
+        id: 'tp1',
+        name: 'Chi. tikka',
+        price: 349,
+        isVeg: false,
+        imageUri: 'https://images.unsplash.com/photo-1599487488170-d11ec9c172f0?w=600&q=80'
+    },
+    {
+        id: 'tp2',
+        name: 'Paneer butter masala',
+        price: 269,
+        originalPrice: 200,
+        isVeg: true,
+        isBestseller: true,
+        imageUri: 'https://images.unsplash.com/photo-1772730064951-89b427965dbc?w=600&q=80'
+    }
+];
+
+export const MENU_ITEMS: MenuItem[] = [
+    {
+        id: 'm1',
+        name: 'Cassata Ice Cream Cake [500 Ml]',
+        price: 340,
+        originalPrice: 303,
+        rating: 4.8,
+        ratingCount: 5,
+        isVeg: true,
+        isBestseller: true,
+        description: 'A hearty cheesy chicken combo paired with flavorful Korean rice, a crispy taco, and a refreshing coke. Best enjoyed with friends.',
+        imageUri: 'https://images.unsplash.com/photo-1551024601-bec78aea704b?w=600&q=80'
+    },
+    {
+        id: 'm2',
+        name: 'Crunchy Butterscotch Gourmet- Ice Cream Tub',
+        price: 200,
+        originalPrice: 178,
+        isVeg: true,
+        isBestseller: true,
+        description: 'A creamy cheesy chicken feast paired with flavorful Korean rice, choco lava cake, and a coke. Absolutely irresistible!',
+        imageUri: 'https://images.unsplash.com/photo-1551024601-bec78aea704b?w=600&q=80'
+    },
+    {
+        id: 'm3',
+        name: 'Chocolate Lava Cake',
+        price: 150,
+        isVeg: true,
+        imageUri: 'https://images.unsplash.com/photo-1551024601-bec78aea704b?w=600&q=80'
+    }
+];
+
+// ── Dummy Order Data ─────────────────────────────────────────────────────────
+
+export const CURRENT_ORDERS: Order[] = [
+    {
+        id: 'ord1',
+        restaurantName: 'Burger Bliss',
+        location: 'Danapur',
+        imageUri: 'https://images.unsplash.com/photo-1550547660-d9450f859349?w=200&q=80',
+        status: 'On the way',
+        statusColor: '#F97316', // Orange
+        items: [
+            { id: 'i1', name: 'Zinger Burger', quantity: 2, price: 180, isVeg: false },
+            { id: 'i2', name: 'Peri Peri Fries', quantity: 1, price: 90, isVeg: true }
+        ],
+        date: 'Today, 7:15 PM',
+        billTotal: 450,
+        isCurrent: true
+    }
+];
+
+export const PAST_ORDERS: Order[] = [
+    {
+        id: 'ord2',
+        restaurantName: 'Vrindavan Bhog',
+        location: 'Bihta',
+        imageUri: 'https://images.unsplash.com/photo-1517244683847-7456b63c5969?w=200&q=80',
+        status: 'Delivered',
+        statusColor: '#16A34A', // Green
+        items: [
+            { id: 'i1', name: 'Pav Bhaji', quantity: 1, price: 50, isVeg: true },
+            { id: 'i2', name: 'Samosa Chaat', quantity: 1, price: 27, isVeg: true }
+        ],
+        date: 'October 16, 6:32 PM',
+        billTotal: 77,
+        foodRating: 0,
+        deliveryRating: 0
+    },
+    {
+        id: 'ord3',
+        restaurantName: 'Bihta Sone Hotel',
+        location: 'Bihta',
+        imageUri: 'https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=200&q=80',
+        status: 'Delivered',
+        statusColor: '#16A34A',
+        items: [
+            { id: 'i1', name: 'Roti', quantity: 4, price: 10, isVeg: true },
+            { id: 'i2', name: 'Matar paneer', quantity: 1, price: 191, isVeg: true }
+        ],
+        date: 'March 29, 3:04 PM',
+        billTotal: 231,
+        foodRating: 0,
+        deliveryRating: 0
+    },
+    {
+        id: 'ord4',
+        restaurantName: 'Vrindavan Bhog',
+        location: 'Bihta',
+        imageUri: 'https://images.unsplash.com/photo-1517244683847-7456b63c5969?w=200&q=80',
+        status: 'Delivered',
+        statusColor: '#16A34A',
+        items: [
+            { id: 'i1', name: 'Samosa [1 Piece]', quantity: 1, price: 20, isVeg: true },
+            { id: 'i2', name: 'Dahi Bhalla Chaat', quantity: 1, price: 40, isVeg: true },
+            { id: 'i3', name: 'Gulab Jamun', quantity: 2, price: 20, isVeg: true },
+            { id: 'i4', name: 'Coke', quantity: 1, price: 55, isVeg: true }
+        ],
+        date: 'March 15, 8:00 PM',
+        billTotal: 155,
+        foodRating: 4,
+        deliveryRating: 5
     }
 ];

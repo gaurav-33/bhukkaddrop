@@ -46,6 +46,40 @@ declare global {
         offerSubtitle: string;
         deliveryTime: string;
         isAd?: boolean;
+        menuCategories?: { id: string; title: string; count: number }[];
+    }
+    interface MenuItem {
+        id: string;
+        name: string;
+        price: number;
+        originalPrice?: number;
+        rating?: number;
+        ratingCount?: number;
+        description?: string;
+        isVeg: boolean;
+        isBestseller?: boolean;
+        imageUri?: string;
+    }
+    interface OrderItem {
+        id: string;
+        name: string;
+        quantity: number;
+        price: number;
+        isVeg: boolean;
+    }
+    interface Order {
+        id: string;
+        restaurantName: string;
+        location: string;
+        imageUri: string;
+        status: string;         // 'Delivered', 'On the way', etc.
+        statusColor?: string;   // hex code
+        items: OrderItem[];
+        date: string;
+        billTotal: number;
+        isCurrent?: boolean;    // Used to separate active vs past
+        foodRating?: number;
+        deliveryRating?: number;
     }
 }
 

@@ -1,5 +1,5 @@
 import home from "@/assets/icons/home.png";
-import order from "@/assets/icons/restaurant.png";
+import order from "@/assets/icons/order.png";
 import search from "@/assets/icons/search.png";
 import profile from "@/assets/icons/user.png";
 import location from "@/assets/icons/location.png"

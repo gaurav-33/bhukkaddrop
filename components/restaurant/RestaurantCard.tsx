@@ -1,4 +1,3 @@
-import { Restaurant } from "@/constants/data";
 import { theme } from "@/constants/theme";
 import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";

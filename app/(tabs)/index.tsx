@@ -3,18 +3,22 @@ import { FilterChip } from "@/components/FilterChip";
 import FooterCredit from "@/components/FooterCredit";
 import { OfferCard } from "@/components/OfferCard";
 import { PromoCard } from "@/components/PromoCard";
-import { RestaurantCard } from "@/components/RestaurantCard";
+import { RestaurantCard } from "@/components/restaurant/RestaurantCard";
 import { SafeAreaView } from "@/components/SafeAreaWrapper";
 import SectionHeader from "@/components/SectionHeader";
 import { CATEGORIES, FILTERS, offers, PROMOS, RESTAURANTS } from "@/constants/data";
 import { icons } from "@/constants/icons";
 import { components, theme } from "@/constants/theme";
+import { Ionicons } from "@expo/vector-icons";
+import { useRouter } from "expo-router";
 import { useEffect, useRef, useState } from "react";
 import { Animated, Image, Pressable, ScrollView, Text, TextInput, View } from "react-native";
 
 export default function Home() {
   const [vegOnly, setVegOnly] = useState(false);
   const thumbAnim = useRef(new Animated.Value(2)).current;
+
+  const router = useRouter();
 
   useEffect(() => {
     Animated.spring(thumbAnim, {
@@ -80,12 +84,8 @@ export default function Home() {
         <View className="flex-row items-center gap-1 mb-5">
           {/* Search Bar */}
           <View className="flex-1 flex-row items-center bg-card border border-border rounded-4xl px-4 py-2 gap-2.5">
-            <Image
-              className="size-5"
-              source={icons.search}
-              style={{ tintColor: theme.colors.mutedForeground }}
-              resizeMode="contain"
-            />
+            <Ionicons name="search" size={18} color={theme.colors.mutedForeground} />
+
             <TextInput
               className="flex-1 font-sans-regular text-sm text-foreground"
               placeholder="Search for food, restaurants..."
@@ -170,7 +170,7 @@ export default function Home() {
 
         <View className="mb-5">
           {RESTAURANTS.map((restaurant) => (
-            <RestaurantCard key={restaurant.id} restaurant={restaurant} onPress={() => null} />
+            <RestaurantCard key={restaurant.id} restaurant={restaurant} onPress={() => router.push({ pathname: '/restaurant/[id]', params: { id: restaurant.id } })} />
           ))}
         </View>
 
