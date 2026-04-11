@@ -20,7 +20,7 @@ const OrdersScreen = () => {
             />
             <ScrollView
                 showsVerticalScrollIndicator={false}
-                contentContainerStyle={{ padding: 20, paddingBottom: 100 }}
+                contentContainerStyle={{ padding: 20, paddingBottom: 120 }}
             >
 
                 {/* Current Orders Section */}
