@@ -2,11 +2,13 @@ import { AppBar } from '@/components/AppBar';
 import FooterCredit from '@/components/FooterCredit';
 import MenuRow from '@/components/profile/MenuRow';
 import { theme } from '@/constants/theme';
+import { useAuthStore, useCartStore } from '@/store';
+import { useClerk, useUser } from '@clerk/expo';
 import { Ionicons } from '@expo/vector-icons';
-import React, { useState } from 'react';
-import { Image, ScrollView, Text, View } from 'react-native';
-
-
+import { useRouter } from 'expo-router';
+import React, { useEffect, useState } from 'react';
+import { ActivityIndicator, Image, Pressable, ScrollView, Text, View } from 'react-native';
+import AlertDialog from '@/components/AlertDialog';
 
 const SectionCard = ({ children, className = '' }: { children: React.ReactNode; className?: string }) => (
     <View className={`bg-card rounded-2xl border border-border overflow-hidden mb-3 ${className}`}>
@@ -16,20 +18,45 @@ const SectionCard = ({ children, className = '' }: { children: React.ReactNode; 
 
 const Divider = () => <View className="h-[0.5px] bg-border mx-4" />;
 
-// ---------- Main Component ----------
 const Profile = () => {
-    const [notificationsEnabled, setNotificationsEnabled] = useState(true);
+    const { user, isLoaded } = useUser();
+    const { signOut } = useClerk();
+    const router = useRouter();
 
-    // Dummy user data
-    const user = {
-        name: 'Gaurav Kumar',
-        email: 'gaurav@bhukkad.com',
-        phone: '+91 98765 43210',
-        avatar: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=200&q=80',
-        bhukkadCoins: 120,
-        savedAddresses: 2,
-        activeOrders: 1,
+    // Zustand
+    const { syncFromClerk, clear } = useAuthStore();
+    const { notificationsEnabled, toggleNotifications } = useCartStore();
+
+    const [showLogoutModal, setShowLogoutModal] = useState(false);
+    const [isLoggingOut, setIsLoggingOut] = useState(false);
+
+    // Sync Clerk user data into Zustand on mount / user change
+    useEffect(() => {
+        if (user) syncFromClerk(user as any);
+    }, [user]);
+
+    const handleLogout = () => {
+        setShowLogoutModal(true);
     };
+
+    const confirmLogout = async () => {
+        setIsLoggingOut(true);
+        try {
+            clear();
+            await signOut();
+            setShowLogoutModal(false);
+            router.replace('/(auth)/sign-in');
+        } catch (e) {
+            console.error(e);
+            setIsLoggingOut(false);
+        }
+    };
+
+    // Real user data from Clerk
+    const displayName = user?.fullName || user?.firstName || 'Bhukkad User';
+    const email = user?.primaryEmailAddress?.emailAddress || '';
+    const phone = user?.primaryPhoneNumber?.phoneNumber || '';
+    const avatar = user?.imageUrl || '';
 
     return (
         <View className="flex-1 bg-background">
@@ -42,28 +69,33 @@ const Profile = () => {
                     {/* Avatar */}
                     <View className="relative">
                         <View className="size-20 rounded-2xl overflow-hidden border-2 border-primary/40">
-                            <Image
-                                source={{ uri: user.avatar }}
-                                className="w-full h-full"
-                                resizeMode="cover"
-                            />
+                            {avatar ? (
+                                <Image
+                                    source={{ uri: avatar }}
+                                    className="w-full h-full"
+                                    resizeMode="cover"
+                                />
+                            ) : (
+                                <View className="w-full h-full bg-primary/20 items-center justify-center">
+                                    <Ionicons name="person" size={32} color={theme.colors.primary} />
+                                </View>
+                            )}
                         </View>
                     </View>
 
                     {/* Info */}
                     <View className="flex-1">
                         <Text className="font-heading-bold text-xl text-white leading-tight" numberOfLines={1}>
-                            {user.name}
+                            {isLoaded ? displayName : '—'}
                         </Text>
                         <Text className="font-sans-regular text-sm text-muted/80 mt-0.5" numberOfLines={1}>
-                            {user.email}
+                            {email || '—'}
                         </Text>
-                        <Text className="font-sans-regular text-sm text-muted/80 mt-0.5">
-                            {user.phone}
-                        </Text>
-                        {/* <Pressable className="mt-2.5 self-start bg-primary/20 border border-primary/30 px-3 py-1 rounded-full">
-                            <Text className="font-sans-semibold text-xs text-primary">Edit Profile</Text>
-                        </Pressable> */}
+                        {!!phone && (
+                            <Text className="font-sans-regular text-sm text-muted/80 mt-0.5">
+                                {phone}
+                            </Text>
+                        )}
                     </View>
                 </View>
             </AppBar>
@@ -75,9 +107,9 @@ const Profile = () => {
                 {/* ── Stats Strip ── */}
                 <View className="flex-row bg-card border border-border rounded-2xl overflow-hidden mb-4">
                     {[
-                        { label: 'BhukkadCoins', value: user.bhukkadCoins.toString(), icon: 'flame' as const, color: theme.colors.accent },
-                        { label: 'Addresses', value: user.savedAddresses.toString(), icon: 'location' as const, color: theme.colors.primary },
-                        { label: 'Active Orders', value: user.activeOrders.toString(), icon: 'bag-check' as const, color: theme.colors.success },
+                        { label: 'BhukkadCoins', value: '120', icon: 'flame' as const, color: theme.colors.accent },
+                        { label: 'Addresses', value: '2', icon: 'location' as const, color: theme.colors.primary },
+                        { label: 'Active Orders', value: '1', icon: 'bag-check' as const, color: theme.colors.success },
                     ].map((stat, i, arr) => (
                         <React.Fragment key={stat.label}>
                             <View className="flex-1 items-center py-4 gap-1">
@@ -99,7 +131,7 @@ const Profile = () => {
                     <Divider />
                     <MenuRow icon="heart-outline" label="Favourites" />
                     <Divider />
-                    <MenuRow icon="location-outline" label="Saved Addresses" value={`${user.savedAddresses} saved`} />
+                    <MenuRow icon="location-outline" label="Saved Addresses" value="2 saved" />
                     <Divider />
                     <MenuRow icon="card-outline" label="Payment Methods" />
                 </SectionCard>
@@ -115,7 +147,7 @@ const Profile = () => {
                         icon="notifications-outline"
                         label="Notifications"
                         value={notificationsEnabled ? 'On' : 'Off'}
-                        onPress={() => setNotificationsEnabled(v => !v)}
+                        onPress={toggleNotifications}
                     />
                     <Divider />
                     <MenuRow icon="star-outline" label="Ratings & Reviews" />
@@ -141,13 +173,28 @@ const Profile = () => {
                 <SectionCard className="mt-1">
                     <MenuRow
                         icon="log-out-outline"
-                        label="Logout"
+                        label="Sign out"
                         showChevron={false}
                         danger={true}
+                        onPress={handleLogout}
                     />
                 </SectionCard>
+
                 <FooterCredit />
             </ScrollView>
+
+            <AlertDialog
+                visible={showLogoutModal}
+                title="Sign out?"
+                message="Are you sure you want to log out of your account?"
+                icon="log-out-outline"
+                cancelText="Cancel"
+                confirmText="Sign Out"
+                onCancel={() => setShowLogoutModal(false)}
+                onConfirm={confirmLogout}
+                isConfirming={isLoggingOut}
+                destructive={true}
+            />
         </View>
     );
 };

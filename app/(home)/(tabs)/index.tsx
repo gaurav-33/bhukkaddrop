@@ -1,3 +1,4 @@
+import BrandLogo from "@/components/BrandLogo";
 import { CategoryCard } from "@/components/CategoryCard";
 import { FilterChip } from "@/components/FilterChip";
 import FooterCredit from "@/components/FooterCredit";
@@ -10,15 +11,16 @@ import VegNonVegBadge from "@/components/VegNonVegBadge";
 import { CATEGORIES, FILTERS, offers, PROMOS, RESTAURANTS } from "@/constants/data";
 import { icons } from "@/constants/icons";
 import { components, theme } from "@/constants/theme";
+import { useCartStore } from "@/store";
 import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { Animated, Image, Pressable, ScrollView, Text, TextInput, View } from "react-native";
 
 export default function Home() {
-  const [vegOnly, setVegOnly] = useState(false);
+  // ── Global state via Zustand (persists across tab switches) ──
+  const { vegOnly, toggleVegOnly } = useCartStore();
   const thumbAnim = useRef(new Animated.Value(2)).current;
-
   const router = useRouter();
 
   useEffect(() => {
@@ -36,9 +38,8 @@ export default function Home() {
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{ paddingBottom: components.tabBar.height + 50 }}
       >
-        {/* ── Top bar: location (left) + avatar (right) ── */}
+        {/* ── Top bar: location (left) + notification (right) ── */}
         <View className="flex-row items-center justify-between pb-4">
-          {/* Location section */}
           <View className="flex-row items-center flex-1 pr-6">
             <Image
               className="size-7 mr-2"
@@ -63,7 +64,6 @@ export default function Home() {
             </View>
           </View>
 
-          {/* Notification bell */}
           <Pressable className="items-center justify-center p-2 rounded-full border border-border bg-muted shadow-sm" onPress={() => null}>
             <Image
               className="size-6"
@@ -76,17 +76,13 @@ export default function Home() {
 
         {/* ── Brand title ── */}
         <View className="mb-2">
-          <Text className="font-heading-bold text-primary text-3xl tracking-wide">
-            bhukkad<Text className="text-foreground">drop!</Text>
-          </Text>
+          <BrandLogo />
         </View>
 
         {/* ── Search Section ── */}
         <View className="flex-row items-center gap-1 mb-5">
-          {/* Search Bar */}
           <View className="flex-1 flex-row items-center bg-card border border-border rounded-4xl px-4 py-2 gap-2.5">
             <Ionicons name="search" size={18} color={theme.colors.mutedForeground} />
-
             <TextInput
               className="flex-1 font-sans-regular text-sm text-foreground"
               placeholder="Search for food, restaurants..."
@@ -95,20 +91,16 @@ export default function Home() {
             />
           </View>
 
-          {/* Veg Toggle */}
+          {/* Veg Toggle — now backed by Zustand */}
           <Pressable
             className={`flex-col items-center gap-1.5 bg-card border rounded-4xl px-3 py-2 ${vegOnly ? 'border-success' : 'border-border'}`}
-            onPress={() => setVegOnly((v) => !v)}
+            onPress={toggleVegOnly}
           >
             <View className="flex-row items-center gap-1.5">
               <VegNonVegBadge isVeg={true} />
               <Text className={`font-sans-bold text-xs ${vegOnly ? 'text-success' : 'text-muted-foreground'}`}>VEG</Text>
             </View>
-            {/* Switch track */}
-            <View
-              className={`w-10 h-4 rounded-full justify-center ${vegOnly ? "bg-success" : "bg-border"}`}
-            >
-              {/* Sliding thumb */}
+            <View className={`w-10 h-4 rounded-full justify-center ${vegOnly ? "bg-success" : "bg-border"}`}>
               <Animated.View
                 className="size-3 rounded-full bg-white shadow"
                 style={{ transform: [{ translateX: thumbAnim }] }}
@@ -170,14 +162,16 @@ export default function Home() {
 
         {/* ── Restaurants to explore ── */}
         <SectionHeader title={"Restaurants to explore"} />
-
         <View className="mb-5">
           {RESTAURANTS.map((restaurant) => (
-            <RestaurantCard key={restaurant.id} restaurant={restaurant} onPress={() => router.push({ pathname: '/restaurant/[id]', params: { id: restaurant.id } })} />
+            <RestaurantCard
+              key={restaurant.id}
+              restaurant={restaurant}
+              onPress={() => router.push({ pathname: '/restaurant/[id]', params: { id: restaurant.id } })}
+            />
           ))}
         </View>
 
-        {/* Footer */}
         <FooterCredit />
       </ScrollView>
     </SafeAreaView>
