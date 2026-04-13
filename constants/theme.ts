@@ -6,11 +6,13 @@ export const colors = {
     muted: "#F7E4D9",
     mutedForeground: "#968176",
     primary: "#FF7043",
+    primaryLight: "#FFAB91",
     primaryDark: "#E64A19",
     accent: "#FF9D42",
     border: "#EEDDCC",
     success: "#16A34A",
     destructive: "#DC2626",
+    white: "#FFFFFF",
 } as const;
 
 export const spacing = {
