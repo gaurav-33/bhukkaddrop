@@ -4,8 +4,8 @@ import { Image, Pressable, Text, View } from 'react-native';
 import Animated, { Easing, FadeIn, FadeOut, LinearTransition } from 'react-native-reanimated';
 
 import { theme } from '@/constants/theme';
+import VegNonVegBadge from '../VegNonVegBadge';
 import { AddToCartButton } from './AddToCartButton';
-import VegNonVegBadge from './VegNonVegBadge';
 
 type Props = {
     title: string;

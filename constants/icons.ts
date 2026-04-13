@@ -4,6 +4,7 @@ import search from "@/assets/icons/search.png";
 import profile from "@/assets/icons/user.png";
 import location from "@/assets/icons/location.png"
 import down from "@/assets/icons/down.png"
+import bell from "@/assets/icons/bell.png"
 
 export const icons = {
     home,
@@ -11,7 +12,8 @@ export const icons = {
     order,
     profile,
     location,
-    down
+    down,
+    bell,
 } as const;
 
 export type IconKey = keyof typeof icons;

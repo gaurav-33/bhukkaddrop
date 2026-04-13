@@ -1,7 +1,6 @@
 import '@/global.css';
 import { useFonts } from "expo-font";
 import { SplashScreen, Stack } from "expo-router";
-import { StatusBar } from 'expo-status-bar';
 import { useEffect } from 'react';
 
 export default function RootLayout() {
@@ -28,7 +27,6 @@ export default function RootLayout() {
 
   return (
     <>
-      <StatusBar style="auto" translucent={true} />
       <Stack screenOptions={{ headerShown: false }} />
     </>
   );

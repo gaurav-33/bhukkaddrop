@@ -1,7 +1,7 @@
 import { AppBar } from '@/components/AppBar';
-import { SafeAreaView } from '@/components/SafeAreaWrapper';
 import { RestaurantInfoCard } from '@/components/restaurant/RestaurantInfoCard';
-import VegNonVegBadge from '@/components/restaurant/VegNonVegBadge';
+import { SafeAreaView } from '@/components/SafeAreaWrapper';
+import VegNonVegBadge from '@/components/VegNonVegBadge';
 import { CURRENT_ORDERS, PAST_ORDERS, RESTAURANTS } from '@/constants/data';
 import { theme } from '@/constants/theme';
 import { Ionicons } from '@expo/vector-icons';

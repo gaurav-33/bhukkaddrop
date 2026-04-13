@@ -1,5 +1,6 @@
 import { theme } from '@/constants/theme';
 import { Ionicons } from '@expo/vector-icons';
+import { StatusBar } from 'expo-status-bar';
 import { useRouter } from 'expo-router';
 import React, { ReactNode } from 'react';
 import { Pressable, Text, View } from 'react-native';
@@ -13,7 +14,10 @@ export type AppBarProps = {
     rightActions?: ReactNode;
     bgColor?: string;
     contentColor?: string;
+    /** Show a subtle divider line below the AppBar. Defaults to false. */
     borderBottom?: boolean;
+    /** Status bar icon/text colour. Use 'light' for dark backgrounds, 'dark' for light. Defaults to 'light'. */
+    statusBarStyle?: 'light' | 'dark' | 'auto';
     children?: ReactNode;
 };
 
@@ -25,6 +29,8 @@ export const AppBar = ({
     rightActions,
     bgColor = "bg-foreground",
     contentColor = theme.colors.white,
+    borderBottom = false,
+    statusBarStyle = 'light',
     children
 }: AppBarProps) => {
     const router = useRouter();
@@ -39,10 +45,11 @@ export const AppBar = ({
     };
 
     return (
-        <View 
-            className={`${bgColor} rounded-b-4xl pb-3 border-b border-border z-10`}
-            style={{ paddingTop: insets.top }}
-        >
+        <View className={`${bgColor} rounded-b-4xl pb-3 z-10 ${borderBottom ? 'border-b border-border' : ''}`}>
+            {/* Control status bar icon colour to match the AppBar background */}
+            <StatusBar style={statusBarStyle} />
+            {/* Status bar filler — same bg, no gap or bleed line */}
+            <View style={{ height: insets.top }} />
             <View className={`flex-row items-center justify-between px-5 pt-2 ${children ? '' : 'pb-2'}`}>
                 {/* Left side (Back Button & Title) */}
                 <View className="flex-row items-center flex-1">
@@ -71,11 +78,7 @@ export const AppBar = ({
             </View>
 
             {/* Children */}
-            {children && (
-                <View className='mt-2'>
-                    {children}
-                </View>
-            )}
+            {children}
         </View>
     );
 };

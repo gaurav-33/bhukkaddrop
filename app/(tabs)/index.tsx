@@ -6,6 +6,7 @@ import { PromoCard } from "@/components/PromoCard";
 import { RestaurantCard } from "@/components/restaurant/RestaurantCard";
 import { SafeAreaView } from "@/components/SafeAreaWrapper";
 import SectionHeader from "@/components/SectionHeader";
+import VegNonVegBadge from "@/components/VegNonVegBadge";
 import { CATEGORIES, FILTERS, offers, PROMOS, RESTAURANTS } from "@/constants/data";
 import { icons } from "@/constants/icons";
 import { components, theme } from "@/constants/theme";
@@ -62,11 +63,11 @@ export default function Home() {
             </View>
           </View>
 
-          {/* Avatar / Profile button */}
+          {/* Notification bell */}
           <Pressable className="items-center justify-center p-2 rounded-full border border-border bg-muted shadow-sm" onPress={() => null}>
             <Image
               className="size-6"
-              source={icons.profile}
+              source={icons.bell}
               style={{ tintColor: theme.colors.foreground }}
               resizeMode="contain"
             />
@@ -96,14 +97,16 @@ export default function Home() {
 
           {/* Veg Toggle */}
           <Pressable
-            className="flex-col items-center gap-2 bg-card border border-border rounded-4xl px-4 py-2"
+            className={`flex-col items-center gap-1.5 bg-card border rounded-4xl px-3 py-2 ${vegOnly ? 'border-success' : 'border-border'}`}
             onPress={() => setVegOnly((v) => !v)}
           >
-            <Text className="font-sans-bold text-xs text-foreground">VEG</Text>
+            <View className="flex-row items-center gap-1.5">
+              <VegNonVegBadge isVeg={true} />
+              <Text className={`font-sans-bold text-xs ${vegOnly ? 'text-success' : 'text-muted-foreground'}`}>VEG</Text>
+            </View>
             {/* Switch track */}
             <View
-              className={`w-10 h-4 rounded-full justify-center ${vegOnly ? "bg-success" : "bg-border"
-                }`}
+              className={`w-10 h-4 rounded-full justify-center ${vegOnly ? "bg-success" : "bg-border"}`}
             >
               {/* Sliding thumb */}
               <Animated.View
